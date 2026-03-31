@@ -13,7 +13,16 @@ namespace Kallipr.Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<Device> builder)
         {
-            
+            builder.HasKey(_ => _.Id);
+
+            // Prevent duplicate devices, and ensure efficient device lookups.
+            builder.HasIndex(_ => new { _.CustomerId, _.DeviceId })
+               .IsUnique();
+
+            builder.HasOne<Customer>()
+                .WithMany()
+                .HasForeignKey(_ => _.CustomerId)
+                .IsRequired();
         }
     }
 }

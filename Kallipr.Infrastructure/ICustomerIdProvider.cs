@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kallipr.Domain
+namespace Kallipr.Infrastructure
 {
-    public class Tenant
+    public interface ICustomerIdProvider
     {
+        public string CustomerId { get; }
     }
 }

@@ -6,20 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kallipr.Application.Devices
+namespace Kallipr.Application.Tenants
 {
-    public class DeviceService : IDeviceService
+    public class CustomerService : ICustomerService
     {
         private readonly KalliprDbContext _dbContext;
-        public DeviceService(KalliprDbContext kalliprDbContext) { 
+        public CustomerService(KalliprDbContext kalliprDbContext)
+        {
             _dbContext = kalliprDbContext;
         }
-
-        async Task<IEnumerable<DeviceDto>> IDeviceService.ListDevicesAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<CustomerDto>> ListCustomersAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Devices
+            return await _dbContext.Customers
                 .AsNoTracking()
-                .Select(_ => new DeviceDto(_.CustomerId, _.DeviceId, _.Label, _.Location))
+                .Select(_ => new CustomerDto(_.Id, _.Name))
                 .ToListAsync(cancellationToken);
         }
     }

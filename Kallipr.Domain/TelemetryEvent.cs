@@ -6,6 +6,7 @@ namespace Kallipr.Domain
 {
     public class TelemetryEvent
     {
+        public long Id { get; }
         public string CustomerId { get; }
         public string DeviceId { get; }
         public string EventId { get; }

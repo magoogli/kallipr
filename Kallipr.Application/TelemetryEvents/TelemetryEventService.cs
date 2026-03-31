@@ -1,5 +1,6 @@
 ﻿using Kallipr.Application.Devices;
 using Kallipr.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kallipr.Application.TelemetryEvents
 {
-    public class TelemetryEventService
+    public class TelemetryEventService : ITelemetryEventService
     {
         private readonly KalliprDbContext _dbContext;
         public TelemetryEventService(KalliprDbContext dbContext)
@@ -16,24 +17,39 @@ namespace Kallipr.Application.TelemetryEvents
             _dbContext = dbContext;
         }
 
-        public async Task CreateTelemetryEventAsync(CancellationToken cancellationToken = default)
+        public async Task CreateTelemetryEventAsync(TelemetryEventDto telemetryEvent, CancellationToken cancellationToken = default)
         {
-            _dbContext.TelemetryEvents.Add(new Domain.TelemetryEvent
-            {
-                Id = Guid.NewGuid(),
-                DeviceId = Guid.NewGuid(),
-                Timestamp = DateTime.UtcNow,
-                EventType = "TestEvent",
-                Data = "TestData"
-            });
+            _dbContext.TelemetryEvents.Add(new Domain.TelemetryEvent(
+                telemetryEvent.CustomerId,
+                telemetryEvent.DeviceId,
+                telemetryEvent.EventId,
+                telemetryEvent.RecordedAt,
+                telemetryEvent.Type,
+                telemetryEvent.Value,
+                telemetryEvent.Unit)
+            );
 
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        async Task<IEnumerable<TelemetryEventDto>> ListTelemetryEventsAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<TelemetryEventDto>> ListTelemetryEventsByDeviceIdAsync(ListTelemetryEventsByDeviceIdRequest request, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.TelemetryEvents.Select(_ => new TelemetryEventDto(_.CustomerId, _.DeviceId, _.Label, _.Location))
+            return await _dbContext.TelemetryEvents
+                .AsNoTracking()
+                .Select(_ => new TelemetryEventDto()
+                {
+                    CustomerId = _.CustomerId,
+                    DeviceId = _.DeviceId,
+                    EventId = _.EventId,
+                    Id = _.Id,
+                    RecordedAt = _.RecordedAt,
+                    Type = _.Type,
+                    Unit = _.Unit,
+                    Value = _.Value
+                })
+                .Where(_ => _.DeviceId == request.DeviceId) 
                 .ToListAsync(cancellationToken);
         }
+
     }
 }

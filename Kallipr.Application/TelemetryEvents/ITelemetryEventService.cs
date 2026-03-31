@@ -8,7 +8,7 @@ namespace Kallipr.Application.TelemetryEvents
 {
     public interface ITelemetryEventService
     {
-        public Task CreateTelemetryEventAsync(CancellationToken cancellationToken = default);
-        public Task<IEnumerable<TelemetryEventDto>> ListTelemetryEventsAsync(CancellationToken cancellationToken = default);
+        public Task CreateTelemetryEventAsync(TelemetryEventDto telemetryEvent, CancellationToken cancellationToken = default);
+        public Task<IEnumerable<TelemetryEventDto>> ListTelemetryEventsByDeviceIdAsync(ListTelemetryEventsByDeviceIdRequest request, CancellationToken cancellationToken = default);
     }
 }

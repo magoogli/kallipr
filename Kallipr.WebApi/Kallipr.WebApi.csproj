@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Kallipr.Application\Kallipr.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tenants\" />
-  </ItemGroup>
-
 </Project>
