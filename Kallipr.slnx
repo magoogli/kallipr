@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Kallipr.Application/Kallipr.Application.csproj" Id="7f94e008-50df-4638-9c4f-22be8f48afce" />
+  <Project Path="Kallipr.Domain/Kallipr.Domain.csproj" />
+  <Project Path="Kallipr.Infrastructure/Kallipr.Infrastructure.csproj" />
+  <Project Path="Kallipr.WebApi/Kallipr.WebApi.csproj" Id="c0bb1c0e-bb44-4643-bfe7-0ddb027c547a" />
+</Solution>
