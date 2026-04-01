@@ -29,7 +29,8 @@ namespace Kallipr.Infrastructure.Configuration
 
             builder.HasOne<Device>()
                 .WithMany()
-                .HasForeignKey(_ => _.DeviceId)
+                .HasForeignKey(_ => new { _.CustomerId, _.DeviceId })
+                .HasPrincipalKey(_ => new { _.CustomerId, _.DeviceId })
                 .IsRequired();
         }
     }

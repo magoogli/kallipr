@@ -11,6 +11,7 @@ namespace Kallipr.Domain
         public string Id { get; }
         public string Name { get; set; }
 
+        protected Customer() { }
         public Customer(string id, string name)
         {
             Id = id;

@@ -15,6 +15,8 @@ namespace Kallipr.Domain
         public double Value { get; }
         public string Unit { get; }
 
+        protected TelemetryEvent() { }
+
         public TelemetryEvent(string customerId, string deviceId, string eventId, DateTime recordedAt, string type, double value, string unit)
         {
             CustomerId = customerId;

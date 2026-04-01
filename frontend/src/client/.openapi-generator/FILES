@@ -1,0 +1,15 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/CustomerApi.md
+docs/CustomerDto.md
+docs/DeviceApi.md
+docs/DeviceDto.md
+docs/TelemetryEventApi.md
+docs/TelemetryEventDto.md
+git_push.sh
+index.ts

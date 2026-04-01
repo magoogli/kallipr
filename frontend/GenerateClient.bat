@@ -1,0 +1,1 @@
+SET JAVA_OPTS=-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true && npx @openapitools/openapi-generator-cli generate -i https://localhost:7264/swagger/v1/swagger.json -g typescript-axios -o src/client --additional-properties=supportsES6=true --additional-properties=useSingleRequestParameter=true

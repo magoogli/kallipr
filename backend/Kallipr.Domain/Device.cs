@@ -12,6 +12,7 @@ namespace Kallipr.Domain
         public string Label { get; set; }
         public string Location { get; set; }
 
+        protected Device() { }
         public Device(string customerId, string deviceId, string label, string location)
         {
             CustomerId = customerId;
