@@ -33,10 +33,10 @@ namespace Kallipr.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<ICustomerIdProvider, CustomerIdProvider>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IDeviceService, DeviceService>();
             builder.Services.AddScoped<ITelemetryEventService, TelemetryEventService>();
+            builder.Services.AddScoped<ICustomerIdProvider, CustomerIdProvider>();
 
             builder.Services.AddDbContext<KalliprDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -60,6 +60,8 @@ namespace Kallipr.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<CustomerIdHeaderMiddleware>();
 
             app.UseAuthorization();
 

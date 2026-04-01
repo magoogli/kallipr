@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 base.ts
 common.ts
@@ -11,5 +10,6 @@ docs/DeviceApi.md
 docs/DeviceDto.md
 docs/TelemetryEventApi.md
 docs/TelemetryEventDto.md
+docs/TelemetryEventsWindowInsightsDto.md
 git_push.sh
 index.ts

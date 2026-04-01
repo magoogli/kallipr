@@ -6,14 +6,14 @@ namespace Kallipr.Domain
 {
     public class TelemetryEvent
     {
-        public long Id { get; }
-        public string CustomerId { get; }
-        public string DeviceId { get; }
-        public string EventId { get; }
-        public DateTime RecordedAt { get;  }
-        public string Type { get; }
-        public double Value { get; }
-        public string Unit { get; }
+        public long Id { get; private set; }
+        public string CustomerId { get; private set; }
+        public string DeviceId { get; private set; }
+        public string EventId { get; private set; }
+        public DateTime RecordedAt { get; private set; }
+        public string Type { get; private set; }
+        public double Value { get; private set; }
+        public string Unit { get; private set; }
 
         protected TelemetryEvent() { }
 

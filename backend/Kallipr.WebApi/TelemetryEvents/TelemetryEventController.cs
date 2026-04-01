@@ -24,11 +24,8 @@ namespace Kallipr.WebApi.TelemetryEvents
             await _telemetryEventService.CreateTelemetryEventAsync(telemetryEvent, cancellationToken);
         }
 
-        [HttpGet(Name = "ListTelemetryEventsByDeviceId")]
-        public async Task<IEnumerable<TelemetryEventDto>> ListTelemetryEventsByDeviceId([FromQuery] ListTelemetryEventsByDeviceIdRequest request, CancellationToken cancellationToken)
-        {
-            return await _telemetryEventService.ListTelemetryEventsByDeviceIdAsync(request, cancellationToken);
-        }
+   
+
 
     }
 }

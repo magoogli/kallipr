@@ -1,13 +1,19 @@
-import { useListCustomers } from "./api/customers";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+import { CustomerSelect } from "./customers/customerSelect";
+import { useCustomerId } from "./customerIdContext";
+import { DeviceList } from "./devices/deviceList";
 
 function App() {
-  const { data: customers, isLoading } = useListCustomers();
+  const { customerId } = useCustomerId();
 
   return (
     <>
-      {customers?.data?.map((customer) => (
-        <div key={customer.id}>{customer.name}</div>
-      ))}
+      <CustomerSelect />
+      {customerId && <DeviceList customerId={customerId} />}
     </>
   );
 }

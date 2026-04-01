@@ -128,6 +128,37 @@ export interface TelemetryEventDto {
      */
     'unit'?: string | null;
 }
+/**
+ * 
+ * @export
+ * @interface TelemetryEventsWindowInsightsDto
+ */
+export interface TelemetryEventsWindowInsightsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof TelemetryEventsWindowInsightsDto
+     */
+    'latestValue'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TelemetryEventsWindowInsightsDto
+     */
+    'minimumValue'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TelemetryEventsWindowInsightsDto
+     */
+    'maximumValue'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TelemetryEventsWindowInsightsDto
+     */
+    'averageValue'?: number;
+}
 
 /**
  * CustomerApi - axios parameter creator
@@ -234,11 +265,77 @@ export const DeviceApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * 
+         * @param {string} deviceId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTelemetryEventsWindowInsights: async (deviceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deviceId' is not null or undefined
+            assertParamExists('getTelemetryEventsWindowInsights', 'deviceId', deviceId)
+            const localVarPath = `/Device/{deviceId}/TelemetryEventsWindowInsights`
+                .replace(`{${"deviceId"}}`, encodeURIComponent(String(deviceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         listDevices: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/Device`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} deviceId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTelemetryEvents: async (deviceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deviceId' is not null or undefined
+            assertParamExists('listTelemetryEvents', 'deviceId', deviceId)
+            const localVarPath = `/Device/{deviceId}/TelemetryEvents`
+                .replace(`{${"deviceId"}}`, encodeURIComponent(String(deviceId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -273,6 +370,18 @@ export const DeviceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {string} deviceId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTelemetryEventsWindowInsights(deviceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TelemetryEventsWindowInsightsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTelemetryEventsWindowInsights(deviceId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.getTelemetryEventsWindowInsights']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -280,6 +389,18 @@ export const DeviceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listDevices(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DeviceApi.listDevices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} deviceId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTelemetryEvents(deviceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TelemetryEventDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTelemetryEvents(deviceId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.listTelemetryEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -294,14 +415,60 @@ export const DeviceApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * 
+         * @param {DeviceApiGetTelemetryEventsWindowInsightsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTelemetryEventsWindowInsights(requestParameters: DeviceApiGetTelemetryEventsWindowInsightsRequest, options?: RawAxiosRequestConfig): AxiosPromise<TelemetryEventsWindowInsightsDto> {
+            return localVarFp.getTelemetryEventsWindowInsights(requestParameters.deviceId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         listDevices(options?: RawAxiosRequestConfig): AxiosPromise<Array<DeviceDto>> {
             return localVarFp.listDevices(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {DeviceApiListTelemetryEventsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listTelemetryEvents(requestParameters: DeviceApiListTelemetryEventsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<TelemetryEventDto>> {
+            return localVarFp.listTelemetryEvents(requestParameters.deviceId, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for getTelemetryEventsWindowInsights operation in DeviceApi.
+ * @export
+ * @interface DeviceApiGetTelemetryEventsWindowInsightsRequest
+ */
+export interface DeviceApiGetTelemetryEventsWindowInsightsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeviceApiGetTelemetryEventsWindowInsights
+     */
+    readonly deviceId: string
+}
+
+/**
+ * Request parameters for listTelemetryEvents operation in DeviceApi.
+ * @export
+ * @interface DeviceApiListTelemetryEventsRequest
+ */
+export interface DeviceApiListTelemetryEventsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeviceApiListTelemetryEvents
+     */
+    readonly deviceId: string
+}
 
 /**
  * DeviceApi - object-oriented interface
@@ -312,12 +479,34 @@ export const DeviceApiFactory = function (configuration?: Configuration, basePat
 export class DeviceApi extends BaseAPI {
     /**
      * 
+     * @param {DeviceApiGetTelemetryEventsWindowInsightsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DeviceApi
+     */
+    public getTelemetryEventsWindowInsights(requestParameters: DeviceApiGetTelemetryEventsWindowInsightsRequest, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).getTelemetryEventsWindowInsights(requestParameters.deviceId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DeviceApi
      */
     public listDevices(options?: RawAxiosRequestConfig) {
         return DeviceApiFp(this.configuration).listDevices(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DeviceApiListTelemetryEventsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DeviceApi
+     */
+    public listTelemetryEvents(requestParameters: DeviceApiListTelemetryEventsRequest, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).listTelemetryEvents(requestParameters.deviceId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -362,40 +551,6 @@ export const TelemetryEventApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {string} [deviceId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listTelemetryEventsByDeviceId: async (deviceId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/TelemetryEvent`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (deviceId !== undefined) {
-                localVarQueryParameter['DeviceId'] = deviceId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -418,18 +573,6 @@ export const TelemetryEventApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['TelemetryEventApi.createTelemetryEvent']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * 
-         * @param {string} [deviceId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listTelemetryEventsByDeviceId(deviceId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TelemetryEventDto>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listTelemetryEventsByDeviceId(deviceId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TelemetryEventApi.listTelemetryEventsByDeviceId']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -449,15 +592,6 @@ export const TelemetryEventApiFactory = function (configuration?: Configuration,
         createTelemetryEvent(requestParameters: TelemetryEventApiCreateTelemetryEventRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.createTelemetryEvent(requestParameters.telemetryEventDto, options).then((request) => request(axios, basePath));
         },
-        /**
-         * 
-         * @param {TelemetryEventApiListTelemetryEventsByDeviceIdRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listTelemetryEventsByDeviceId(requestParameters: TelemetryEventApiListTelemetryEventsByDeviceIdRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<TelemetryEventDto>> {
-            return localVarFp.listTelemetryEventsByDeviceId(requestParameters.deviceId, options).then((request) => request(axios, basePath));
-        },
     };
 };
 
@@ -476,20 +610,6 @@ export interface TelemetryEventApiCreateTelemetryEventRequest {
 }
 
 /**
- * Request parameters for listTelemetryEventsByDeviceId operation in TelemetryEventApi.
- * @export
- * @interface TelemetryEventApiListTelemetryEventsByDeviceIdRequest
- */
-export interface TelemetryEventApiListTelemetryEventsByDeviceIdRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TelemetryEventApiListTelemetryEventsByDeviceId
-     */
-    readonly deviceId?: string
-}
-
-/**
  * TelemetryEventApi - object-oriented interface
  * @export
  * @class TelemetryEventApi
@@ -505,17 +625,6 @@ export class TelemetryEventApi extends BaseAPI {
      */
     public createTelemetryEvent(requestParameters: TelemetryEventApiCreateTelemetryEventRequest = {}, options?: RawAxiosRequestConfig) {
         return TelemetryEventApiFp(this.configuration).createTelemetryEvent(requestParameters.telemetryEventDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {TelemetryEventApiListTelemetryEventsByDeviceIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TelemetryEventApi
-     */
-    public listTelemetryEventsByDeviceId(requestParameters: TelemetryEventApiListTelemetryEventsByDeviceIdRequest = {}, options?: RawAxiosRequestConfig) {
-        return TelemetryEventApiFp(this.configuration).listTelemetryEventsByDeviceId(requestParameters.deviceId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

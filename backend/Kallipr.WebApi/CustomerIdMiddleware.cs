@@ -1,17 +1,21 @@
-﻿namespace Kallipr.WebApi
+﻿using Kallipr.Infrastructure;
+
+namespace Kallipr.WebApi
 {
     public class CustomerIdHeaderMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<CustomerIdHeaderMiddleware> _logger;
-        private readonly CustomerIdProvider _customerIdProvider;
 
-        public CustomerIdHeaderMiddleware(RequestDelegate next, ILogger<CustomerIdHeaderMiddleware> logger, CustomerIdProvider customerIdProvider) { 
+        public CustomerIdHeaderMiddleware(RequestDelegate next, 
+            ILogger<CustomerIdHeaderMiddleware> logger) { 
             _logger = logger;
-            _customerIdProvider = customerIdProvider;
+            _next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        // Note that I inject the customerIdProvider in the method rather than the constructor as the middleware is a singleton.
+        // And my service has to be scoped.
+        public async Task InvokeAsync(HttpContext context, ICustomerIdProvider customerIdProvider)
         {
             var customerIdHeader = context.Request.Headers["X-CustomerId"].FirstOrDefault();
             if (string.IsNullOrEmpty(customerIdHeader))
@@ -20,7 +24,7 @@
             }
             else
             {
-                _customerIdProvider.CustomerId = customerIdHeader;
+                customerIdProvider.CustomerId = customerIdHeader;
             }
             await _next(context);   
         }

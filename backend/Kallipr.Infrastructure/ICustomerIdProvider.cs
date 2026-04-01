@@ -8,6 +8,6 @@ namespace Kallipr.Infrastructure
 {
     public interface ICustomerIdProvider
     {
-        public string CustomerId { get; }
+        public string CustomerId { get; set; }
     }
 }
