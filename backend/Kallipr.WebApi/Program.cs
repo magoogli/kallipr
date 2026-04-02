@@ -13,6 +13,11 @@ namespace Kallipr.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddHealthChecks()
+                .AddSqlite(connectionString);
+
 
             // Add CORS policy that allows everything
             builder.Services.AddCors(options =>
@@ -38,9 +43,12 @@ namespace Kallipr.WebApi
             builder.Services.AddScoped<ITelemetryEventService, TelemetryEventService>();
             builder.Services.AddScoped<ICustomerIdProvider, CustomerIdProvider>();
 
-            builder.Services.AddDbContext<KalliprDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<KalliprDbContext>(options => options.UseSqlite(connectionString));
 
             var app = builder.Build();
+
+            app.MapHealthChecks("/health");
+                 
 
             // Ensure the database is created and seed initial data. NOT for production use - in a real application, you would typically use EF Core Migrations and a more robust seeding strategy.
             using (var scope = app.Services.CreateScope())
