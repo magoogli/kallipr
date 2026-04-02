@@ -6,6 +6,7 @@ to run the front end:
 run:
 
 pnpm i
+
 pnpm dev
 
 in the frontend folder.
