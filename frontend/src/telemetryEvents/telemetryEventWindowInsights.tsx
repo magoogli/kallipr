@@ -18,13 +18,17 @@ export function TelemetryEventWindowInsights({
   );
 
   return (
-    <Paper sx={{ height: 400, width: "100%" }}>
+    <Paper>
       {insights && (
         <>
           Latest Value: {insights.data.latestValue}
+          <br />
           Average Value: {insights.data.averageValue}
+          <br />
           Minimum Value: {insights.data.minimumValue}
+          <br />
           Maximum Value: {insights.data.maximumValue}
+          <br />
         </>
       )}
     </Paper>

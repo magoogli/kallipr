@@ -6,6 +6,7 @@ import "@fontsource/roboto/700.css";
 import { CustomerSelect } from "./customers/customerSelect";
 import { useCustomerId } from "./customerIdContext";
 import { DeviceList } from "./devices/deviceList";
+import { BrowserRouter, Route, Routes } from "react-router";
 
 function App() {
   const { customerId } = useCustomerId();
@@ -19,3 +20,6 @@ function App() {
 }
 
 export default App;
+
+/*
+ */
