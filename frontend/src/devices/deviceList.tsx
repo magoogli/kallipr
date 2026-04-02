@@ -10,7 +10,7 @@ const columns: GridColDef<DeviceDto>[] = [
   { field: "location", headerName: "Location", width: 100 },
 ];
 
-const paginationModel = { page: 0, pageSize: 5 };
+const paginationModel = { page: 0, pageSize: 10 };
 
 export interface DeviceListProps {
   customerId: string;

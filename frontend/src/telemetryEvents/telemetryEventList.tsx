@@ -5,13 +5,13 @@ import { useListTelemetryEvents } from "../api/devices";
 
 const columns: GridColDef<TelemetryEventDto>[] = [
   { field: "eventId", headerName: "Event Id", width: 100 },
-  { field: "recordedAt", headerName: "Recorded At", width: 100 },
+  { field: "recordedAt", headerName: "Recorded At", width: 200 },
   { field: "type", headerName: "Type", width: 100 },
   { field: "value", headerName: "Value", width: 100 },
   { field: "unit", headerName: "Unit", width: 100 },
 ];
 
-const paginationModel = { page: 0, pageSize: 5 };
+const paginationModel = { page: 0, pageSize: 10 };
 
 export interface TelemetryEventListProps {
   customerId: string;
